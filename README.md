@@ -1,6 +1,5 @@
-## Express rendering for React.
+## Express rendering for React with dynamic metatags
 
-### Available Scripts
 
 In the project directory, you can run to start development server:
 
@@ -10,7 +9,7 @@ In the project directory, you can run to start development server:
 
  <br />
 
-To actually test the dynamic tags, make a build and serve
+To actually test the dynamic tags, make a build and serve (edit serve.js to your liking)
 
 ### `npm run build`
 
