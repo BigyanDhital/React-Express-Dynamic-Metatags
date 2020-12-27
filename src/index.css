@@ -10,11 +10,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 .App {
-  text-align: center;
 }
 nav {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   align-self: flex-start;
 }
@@ -45,7 +44,7 @@ li {
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,4 +64,33 @@ li {
   to {
     transform: rotate(360deg);
   }
+}
+.container {
+  padding: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.blogPostsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.blogContainer {
+  flex: 1;
+  border: 1px solid #eee;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 50%;
+  flex: 1 0 300px;
+  border-radius: 10px;
+  margin: 10px;
+}
+.blogContainer h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+h2 {
+  font-size: 1rem;
 }

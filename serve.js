@@ -1,7 +1,9 @@
 const express = require("express");
 const path = require("path");
+const fetch = require("node-fetch");
 const app = express();
 const fs = require("fs");
+const { API } = require("./src/config");
 const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, "build")));
@@ -13,7 +15,6 @@ app.get("/", function (req, res) {
   let htmlContent = fs.readFileSync("build/index.html", "utf8");
   htmlContent = htmlContent.replace(__PAGE_TITLE__, `Welcome to express rendering`);
   htmlContent = htmlContent.replace(__DESCRIPTION__, `Dynamic tags, dynamic description and so much more!`);
-  htmlContent = htmlContent.replace(`__PAGE_NO_SCRIPT__`, `Page content for when JS is disabled.`);
   res.send(htmlContent);
 });
 
@@ -21,24 +22,27 @@ app.get("/about", function (req, res) {
   let htmlContent = fs.readFileSync("build/index.html", "utf8");
   htmlContent = htmlContent.replace(__PAGE_TITLE__, `About Express rendering`);
   htmlContent = htmlContent.replace(__DESCRIPTION__, `How amazing is this description!`);
-  htmlContent = htmlContent.replace(`__PAGE_NO_SCRIPT__`, `Page content for when JS is disabled.`);
   res.send(htmlContent);
 });
 app.get("/blog", function (req, res) {
-  // make db/api request to get the blog content dynamically
   let htmlContent = fs.readFileSync("build/index.html", "utf8");
   htmlContent = htmlContent.replace(__PAGE_TITLE__, `Our Blog section`);
   htmlContent = htmlContent.replace(__DESCRIPTION__, `Read amazing articles from our esteemed team`);
-  htmlContent = htmlContent.replace(`__PAGE_NO_SCRIPT__`, `Page content for when JS is disabled.`);
   res.send(htmlContent);
 });
-app.get("/blog/:id", function (req, res) {
+app.get("/blog/:id", async function (req, res) {
   const { id } = req.params;
-  // make db/api request to get the blog content dynamically for ${id}
+  let detail = { title: `Blog Post ${id}`, body: "Read amazing articles from our esteemed team" };
+  try {
+    detail = await fetch(`${API.posts}/${id}`);
+    detail = await detail.json();
+  } catch (e) {
+    console.log(e);
+  }
   let htmlContent = fs.readFileSync("build/index.html", "utf8");
-  htmlContent = htmlContent.replace(__PAGE_TITLE__, `${id} - Our Blog Post`);
-  htmlContent = htmlContent.replace(__DESCRIPTION__, `Read amazing articles from our esteemed team`);
-  htmlContent = htmlContent.replace(`__PAGE_NO_SCRIPT__`, `Page content for when JS is disabled.`);
+  htmlContent = htmlContent.replace(__PAGE_TITLE__, detail.title);
+  htmlContent = htmlContent.replace(__DESCRIPTION__, detail.body.slice(0, 50));
+  htmlContent = htmlContent.replace(`__PAGE_NO_SCRIPT__`, `<p>${detail.body}</p>`);
   res.send(htmlContent);
 });
 

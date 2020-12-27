@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
-
+import { Link, Switch, BrowserRouter, Route } from "react-router-dom";
+import HomePage from "./pages/homepage";
+import AboutPage from "./pages/about";
+import Blog from "./pages/blog";
+import BlogDetail from "./pages/blogdetail";
 function App() {
+  const [blogs, setBlogs] = useState([]);
+  const [blogDetail, setBlogDetail] = useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <nav>
-          <div>
-            <a href="/">Home</a>
-          </div>
-          <div>
-            <a href="/about">About Page</a>
-          </div>
-          <div>
-            <a href="/blog/">Blog Page</a>
-            <ul>
-              <div>
-                <a href="/blog/1">Blog Post 1</a>
-              </div>
-              <div>
-                <a href="/blog/2">Blog Post 2</a>
-              </div>
-            </ul>
-          </div>
-        </nav>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>React app served with express with dynamic metatags with react</p>
-        <p>Can be configured with react router too</p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <nav className="container">
+            <div>
+              <Link to="/">Home</Link>
+            </div>
+            <div>
+              <Link to="/about">About Page</Link>
+            </div>
+            <div>
+              <Link to="/blog/">Blog Page</Link>
+            </div>
+          </nav>
+        </header>
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+
+          <Route path="/about" component={AboutPage} />
+
+          <Route path="/blog/:blogId" component={BlogDetail} />
+          <Route path="/blog" e component={() => <Blog {...{ blogs, setBlogs }} />} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
