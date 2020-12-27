@@ -2,20 +2,20 @@
 
 ### Available Scripts
 
-In the project directory, you can run to develop:
+In the project directory, you can run to start development server:
 
 ### `npm install`
 
 ### `npm start`
 
-Runs the app in the development mode.<br /><br />
+ <br />
 
 To make a build and serve
 
 ### `npm run build`
 
-### `node run`
+### `node serve`
 
-`(or nodemon, pm2 etc)`
+`(or use nodemon, pm2 etc)`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

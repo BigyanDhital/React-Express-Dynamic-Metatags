@@ -10,7 +10,6 @@ const __PAGE_TITLE__ = "Welcome to express rendering";
 const __DESCRIPTION__ = "Dynamic tags, dynamic description and so much more!";
 
 app.get("/", function (req, res) {
-  console.log("Homepage!");
   let htmlContent = fs.readFileSync("build/index.html", "utf8");
   htmlContent = htmlContent.replace(__PAGE_TITLE__, `Welcome to express rendering`);
   htmlContent = htmlContent.replace(__DESCRIPTION__, `Dynamic tags, dynamic description and so much more!`);
@@ -19,7 +18,6 @@ app.get("/", function (req, res) {
 });
 
 app.get("/about", function (req, res) {
-  console.log("about!");
   let htmlContent = fs.readFileSync("build/index.html", "utf8");
   htmlContent = htmlContent.replace(__PAGE_TITLE__, `About Express rendering`);
   htmlContent = htmlContent.replace(__DESCRIPTION__, `How amazing is this description!`);
